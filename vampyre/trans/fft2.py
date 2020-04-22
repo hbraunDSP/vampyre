@@ -9,7 +9,7 @@ import numpy as np
 from scipy.fftpack import fft2, ifft2
 
 
-class Fourier2DLT(UnitarySvdMixin, BaseLinTrans):
+class Fourier2DLT(BaseLinTrans, UnitarySvdMixin):
     """Linear transform defined by a 2-D Fourier transform.
     
     The class defines a linear transform :math:`z_1 = Fz_0` where :math:`F`
@@ -57,7 +57,7 @@ class Fourier2DLT(UnitarySvdMixin, BaseLinTrans):
         if not np.all(self.shape0 == self.shape1):
             slc = slice(None) * len(self.shape0)
             pad = np.zeros((2,len(self.shape0)))
-            for i_ax in self.ft_axes:
+            for i_ax in self.fft_axes:
                 if self.shape1[i_ax] > self.shape0[i_ax]:
                     slc[i_ax] = slice(self.shape0)
                 elif self.shape1[i_ax] < self.shape0[i_ax]:
